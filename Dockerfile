@@ -198,10 +198,12 @@ RUN set -x && \
     make all install && \
     popd && \
     # Build readsb.
-    git clone https://github.com/Mictronics/readsb-protobuf.git "/src/readsb-protobuf" && \
+    git clone --depth 1 https://github.com/Mictronics/readsb-protobuf.git "/src/readsb-protobuf" && \
     pushd "/src/readsb-protobuf" && \
-    BRANCH_READSB=$(git tag --sort="creatordate" | tail -1) && \
-    git checkout "$BRANCH_READSB" && \
+    # 01feb2022 - kx1t commented out the next 2 lines because the repo stopped labeling its updates after August 2021
+    #.            we just want the latest committed version of the software
+    # BRANCH_READSB=$(git tag --sort="creatordate" | tail -1) && \
+    # git checkout "$BRANCH_READSB" && \
     make BLADERF=yes RTLSDR=yes PLUTOSDR=yes && \
     popd && \
     # Install readsb - Copy readsb executables to /usr/local/bin/.
